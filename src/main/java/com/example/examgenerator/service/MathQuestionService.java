@@ -5,21 +5,22 @@ import com.example.examgenerator.exception.QuestionIsAlreadyAddedException;
 import com.example.examgenerator.exception.QuestionNotFoundedException;
 import com.example.examgenerator.question.Question;
 import com.example.examgenerator.repository.QuestionRepository;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
+import java.util.Collection;
 import java.util.Random;
 
-import java.util.*;
-
 @Service
-@Component("JavaQuestionService")
-public class JavaQuestionService implements QuestionService {
+@Component("MathQuestionService")
+public class MathQuestionService implements QuestionService {
 
     @Autowired
-    @Qualifier("JavaQuestionRepository")
+    @Qualifier("MathQuestionRepository")
     private QuestionRepository questionRepository;
 
     @Override
@@ -76,7 +77,8 @@ public class JavaQuestionService implements QuestionService {
     }
 
     public boolean checkQuestionText(String question, String answer) {
-        if (question != null && answer != null && !answer.equals(question))
+        if (question != null && answer != null && !answer.equals(question) && StringUtils.isNumeric(question) &&
+                StringUtils.isNumeric(answer))
             return true;
         else return false;
     }
