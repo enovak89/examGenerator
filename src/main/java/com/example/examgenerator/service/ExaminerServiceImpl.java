@@ -32,7 +32,7 @@ public class ExaminerServiceImpl implements ExaminerService {
             throw new IncorrectAmountQuestionException("Количество вопросов в базе: " + questionBaseAmount);
         }
 
-        Integer javaQuestionAmount = new Random().nextInt(amount) + 1;
+        Integer javaQuestionAmount = new Random().nextInt(amount + 1);
         if (javaQuestionAmount > javaquestionService.getAllQuestion().size() || amount > questionBaseAmount / 2) {
             javaQuestionAmount = javaquestionService.getAllQuestion().size();
         }
@@ -56,14 +56,6 @@ public class ExaminerServiceImpl implements ExaminerService {
         return randomQuestionSet;
 
 
-//        if (amount > javaquestionService.getAllQuestion().size()) {
-//            throw new IncorrectAmountQuestionException("Количество вопросов в базе: " + javaquestionService.getAllQuestion().size());
-//        }
-//        do {
-//            randomQuestionSet.add(javaquestionService.getRandomQuestion());
-//        }
-//        while (randomQuestionSet.size() < amount);
-//        return randomQuestionSet;
     }
 
 }
