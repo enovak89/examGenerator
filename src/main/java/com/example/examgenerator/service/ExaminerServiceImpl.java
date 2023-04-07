@@ -18,44 +18,40 @@ public class ExaminerServiceImpl implements ExaminerService {
 
     @Autowired
     @Qualifier("JavaQuestionService")
-    private QuestionService javaquestionService;
+    private QuestionService javaQuestionService;
 
     @Autowired
     @Qualifier("MathQuestionService")
-    private QuestionService mathquestionService;
+    private QuestionService mathQuestionService;
 
 
     @Override
     public Collection<Question> getQuestion(Integer amount) {
-        Integer questionBaseAmount = javaquestionService.getAllQuestion().size() + mathquestionService.getAllQuestion().size();
+        Integer questionBaseAmount = javaQuestionService.getAllQuestion().size() + mathQuestionService.getAllQuestion().size();
         if (amount > questionBaseAmount) {
             throw new IncorrectAmountQuestionException("Количество вопросов в базе: " + questionBaseAmount);
         }
 
         Integer javaQuestionAmount = new Random().nextInt(amount + 1);
-        if (javaQuestionAmount > javaquestionService.getAllQuestion().size() || amount > questionBaseAmount / 2) {
-            javaQuestionAmount = javaquestionService.getAllQuestion().size();
+        if (javaQuestionAmount > javaQuestionService.getAllQuestion().size() || amount > questionBaseAmount / 2) {
+            javaQuestionAmount = javaQuestionService.getAllQuestion().size();
         }
         Integer mathQuestionAmount = amount - javaQuestionAmount;
-        if (mathQuestionAmount > mathquestionService.getAllQuestion().size()) {
-            mathQuestionAmount = mathquestionService.getAllQuestion().size();
+        if (mathQuestionAmount > mathQuestionService.getAllQuestion().size()) {
+            mathQuestionAmount = mathQuestionService.getAllQuestion().size();
         }
 
         randomQuestionSet = Stream.
-                generate(() -> javaquestionService.getRandomQuestion())
+                generate(() -> javaQuestionService.getRandomQuestion())
                 .distinct()
                 .limit(javaQuestionAmount)
                 .collect(Collectors.toSet());
 
         randomQuestionSet.addAll(Stream.
-                generate(() -> mathquestionService.getRandomQuestion())
+                generate(() -> mathQuestionService.getRandomQuestion())
                 .distinct()
                 .limit(mathQuestionAmount)
                 .collect(Collectors.toSet()));
-
         return randomQuestionSet;
-
-
     }
-
 }

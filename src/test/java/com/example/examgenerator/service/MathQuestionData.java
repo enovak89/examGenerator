@@ -1,4 +1,4 @@
-package com.example.examgenerator.repository;
+package com.example.examgenerator.service;
 
 import com.example.examgenerator.question.Question;
 
@@ -7,7 +7,9 @@ import java.util.List;
 
 public class MathQuestionData {
     public static final String QUESTION_STRING_CORRECT = "123";
+    public static final String QUESTION_STRING_INCORRECT = "123a";
     public static final String ANSWER_STRING_CORRECT = "321";
+    public static final String ANSWER_STRING_INCORRECT = "321a";
     public static final Question QUESTION_CORRECT = new Question("123", "321");
 
     public static final List<Question> QUESTION_LIST = new ArrayList<>();

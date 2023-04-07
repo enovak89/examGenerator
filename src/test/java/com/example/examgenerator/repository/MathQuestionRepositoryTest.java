@@ -10,6 +10,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static com.example.examgenerator.repository.MathQuestionData.*;
 import static org.junit.jupiter.api.Assertions.*;
+
 @ContextConfiguration(classes = {MathQuestionRepository.class})
 @ExtendWith(SpringExtension.class)
 class MathQuestionRepositoryTest {
