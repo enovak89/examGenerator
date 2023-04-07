@@ -31,8 +31,15 @@ public class ExaminerServiceImpl implements ExaminerService {
         if (amount > questionBaseAmount) {
             throw new IncorrectAmountQuestionException("Количество вопросов в базе: " + questionBaseAmount);
         }
+
         Integer javaQuestionAmount = new Random().nextInt(amount) + 1;
+        if (javaQuestionAmount > javaquestionService.getAllQuestion().size() || amount > questionBaseAmount / 2) {
+            javaQuestionAmount = javaquestionService.getAllQuestion().size();
+        }
         Integer mathQuestionAmount = amount - javaQuestionAmount;
+        if (mathQuestionAmount > mathquestionService.getAllQuestion().size()) {
+            mathQuestionAmount = mathquestionService.getAllQuestion().size();
+        }
 
         randomQuestionSet = Stream.
                 generate(() -> javaquestionService.getRandomQuestion())
