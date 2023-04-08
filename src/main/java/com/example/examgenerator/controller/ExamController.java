@@ -19,8 +19,11 @@ public class ExamController {
         return HttpStatus.BAD_REQUEST.toString() + " " + e.getMessage();
     }
 
-    @Autowired
-    private ExaminerService examinerService;
+    private final ExaminerService examinerService;
+
+    public ExamController(ExaminerService examinerService) {
+        this.examinerService = examinerService;
+    }
 
 
     @GetMapping(path = "/exam/get/{amount}")

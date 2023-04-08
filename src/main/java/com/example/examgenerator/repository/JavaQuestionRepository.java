@@ -9,8 +9,7 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
-@Component("JavaQuestionRepository")
+@Repository("JavaQuestionRepository")
 public class JavaQuestionRepository implements QuestionRepository {
     private List<Question> questionList = new ArrayList<>();
 

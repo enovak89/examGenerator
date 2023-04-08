@@ -4,6 +4,7 @@ import com.example.examgenerator.exception.IncorrectArgumentException;
 import com.example.examgenerator.exception.QuestionIsAlreadyAddedException;
 import com.example.examgenerator.exception.QuestionNotFoundedException;
 import com.example.examgenerator.question.Question;
+import com.example.examgenerator.repository.MathQuestionRepository;
 import com.example.examgenerator.repository.QuestionRepository;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,15 @@ import javax.annotation.PostConstruct;
 import java.util.Collection;
 import java.util.Random;
 
-@Service
-@Component("MathQuestionService")
+@Service("MathQuestionService")
 public class MathQuestionService implements QuestionService {
 
-    @Autowired
-    @Qualifier("MathQuestionRepository")
-    private QuestionRepository questionRepository;
+//    @Qualifier("MathQuestionRepository")
+    private final MathQuestionRepository questionRepository;
+
+    public MathQuestionService(MathQuestionRepository questionRepository) {
+        this.questionRepository = questionRepository;
+    }
 
     @Override
     public Question addQuestion(String question, String answer) {

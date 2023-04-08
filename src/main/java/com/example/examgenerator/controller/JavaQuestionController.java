@@ -17,9 +17,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/exam/java")
 public class JavaQuestionController {
-    @Autowired
-    @Qualifier("JavaQuestionService")
-    private QuestionService questionService;
+//    @Qualifier("JavaQuestionService")
+    private final JavaQuestionService questionService;
+
+    public JavaQuestionController(JavaQuestionService questionService) {
+        this.questionService = questionService;
+    }
 
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)

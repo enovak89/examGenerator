@@ -4,6 +4,7 @@ import com.example.examgenerator.exception.IncorrectArgumentException;
 import com.example.examgenerator.exception.QuestionIsAlreadyAddedException;
 import com.example.examgenerator.exception.QuestionNotFoundedException;
 import com.example.examgenerator.question.Question;
+import com.example.examgenerator.service.MathQuestionService;
 import com.example.examgenerator.service.QuestionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -13,13 +14,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
-@RestController
-@Component("MathQuestionController")
+@RestController("MathQuestionController")
 @RequestMapping("/exam/math")
 public class MathQuestionController {
-    @Autowired
-    @Qualifier("MathQuestionService")
-    QuestionService questionService;
+//    @Qualifier("MathQuestionService")
+    private final MathQuestionService questionService;
+
+    public MathQuestionController(MathQuestionService questionService) {
+        this.questionService = questionService;
+    }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({IncorrectArgumentException.class, QuestionNotFoundedException.class, QuestionIsAlreadyAddedException.class})

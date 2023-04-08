@@ -13,24 +13,42 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-import static com.example.examgenerator.service.JavaQuestionData.*;
 
 @ContextConfiguration(classes = {JavaQuestionService.class})
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(SpringExtension.class)
 class JavaQuestionServiceTest {
 
-    @Mock
+    @MockBean
     private JavaQuestionRepository javaQuestionRepository;
-    @InjectMocks
-    private JavaQuestionService javaQuestionService;
 
+    private final JavaQuestionService javaQuestionService;
+    @Autowired
+    public JavaQuestionServiceTest(JavaQuestionService javaQuestionService) {
+        this.javaQuestionService = javaQuestionService;
+    }
+
+    public static final String QUESTION_STRING_CORRECT = "ABC";
+    public static final String ANSWER_STRING_CORRECT = "CBA";
+    public static final Question QUESTION_CORRECT = new Question("ABC", "CBA");
+
+    public static final List<Question> QUESTION_LIST = new ArrayList<>();
+
+    static {
+        QUESTION_LIST.add(new Question("ABC", "CBA"));
+        QUESTION_LIST.add(new Question("DEF", "FED"));
+        QUESTION_LIST.add(new Question("XYZ", "ZYX"));
+    }
     @Test
     void addQuestionCorrect() {
         // Подготовка ожидаемого результата

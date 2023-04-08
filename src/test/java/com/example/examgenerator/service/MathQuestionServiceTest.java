@@ -3,30 +3,51 @@ package com.example.examgenerator.service;
 import com.example.examgenerator.exception.IncorrectArgumentException;
 import com.example.examgenerator.exception.QuestionIsAlreadyAddedException;
 import com.example.examgenerator.exception.QuestionNotFoundedException;
+import com.example.examgenerator.question.Question;
 import com.example.examgenerator.repository.MathQuestionRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import static com.example.examgenerator.service.MathQuestionData.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ContextConfiguration(classes = {MathQuestionService.class})
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(SpringExtension.class)
 class MathQuestionServiceTest {
 
-    @Mock
+    @MockBean
     private MathQuestionRepository mathQuestionRepository;
-    @InjectMocks
-    private MathQuestionService mathQuestionService;
+    private final MathQuestionService mathQuestionService;
 
+    @Autowired
+    public MathQuestionServiceTest(MathQuestionService mathQuestionService) {
+        this.mathQuestionService = mathQuestionService;
+    }
+
+    public static final String QUESTION_STRING_CORRECT = "123";
+    public static final String QUESTION_STRING_INCORRECT = "123a";
+    public static final String ANSWER_STRING_CORRECT = "321";
+    public static final String ANSWER_STRING_INCORRECT = "321a";
+    public static final Question QUESTION_CORRECT = new Question("123", "321");
+
+    public static final List<Question> QUESTION_LIST = new ArrayList<>();
+
+    static {
+        QUESTION_LIST.add(new Question("123", "321"));
+        QUESTION_LIST.add(new Question("456", "654"));
+        QUESTION_LIST.add(new Question("789", "987"));
+    }
     @Test
     void addQuestionCorrect() {
         // Подготовка ожидаемого результата

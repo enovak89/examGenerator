@@ -7,7 +7,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,17 +21,22 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ContextConfiguration(classes = {ExaminerServiceImpl.class})
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(SpringExtension.class)
 class ExaminerServiceImplTest {
 
-    @Mock
+    @MockBean
     private JavaQuestionService javaQuestionService;
 
-    @Mock
+    @MockBean
     private MathQuestionService mathQuestionService;
 
-    @InjectMocks
-    private ExaminerServiceImpl examinerServiceImpl;
+
+    private final ExaminerServiceImpl examinerServiceImpl;
+    @Autowired
+    public ExaminerServiceImplTest(ExaminerServiceImpl examinerServiceImpl) {
+        this.examinerServiceImpl = examinerServiceImpl;
+    }
+
 
     @Test
     void getQuestionCorrect() {

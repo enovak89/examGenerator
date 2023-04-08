@@ -8,20 +8,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
-import static com.example.examgenerator.repository.MathQuestionData.*;
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @ContextConfiguration(classes = {MathQuestionRepository.class})
 @ExtendWith(SpringExtension.class)
 class MathQuestionRepositoryTest {
-    @Autowired
+
     private MathQuestionRepository mathQuestionRepository;
+    @Autowired
+    public MathQuestionRepositoryTest(MathQuestionRepository mathQuestionRepository) {
+        this.mathQuestionRepository = mathQuestionRepository;
+    }
 
     @BeforeEach
     private void clearQuestionList() {
         mathQuestionRepository.getAllQuestion().clear();
     }
 
+    public static final String QUESTION_STRING_CORRECT = "123";
+    public static final String ANSWER_STRING_CORRECT = "321";
+    public static final Question QUESTION_CORRECT = new Question("123", "321");
+
+    public static final List<Question> QUESTION_LIST = new ArrayList<>();
+
+    static {
+        QUESTION_LIST.add(new Question("123", "321"));
+        QUESTION_LIST.add(new Question("456", "654"));
+        QUESTION_LIST.add(new Question("789", "987"));
+    }
     @Test
     void addQuestion() {
         assertEquals(QUESTION_CORRECT, mathQuestionRepository.addQuestion(QUESTION_CORRECT));

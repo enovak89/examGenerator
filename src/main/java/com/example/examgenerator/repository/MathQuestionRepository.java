@@ -13,8 +13,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-@Repository
-@Component("MathQuestionRepository")
+@Repository("MathQuestionRepository")
 public class MathQuestionRepository implements QuestionRepository {
 
     private List<Question> questionList = new ArrayList<>();

@@ -2,7 +2,6 @@ package com.example.examgenerator.service;
 
 import com.example.examgenerator.exception.IncorrectAmountQuestionException;
 import com.example.examgenerator.question.Question;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
@@ -16,13 +15,17 @@ import java.util.stream.Stream;
 public class ExaminerServiceImpl implements ExaminerService {
     Collection<Question> randomQuestionSet = new HashSet<>();
 
-    @Autowired
-    @Qualifier("JavaQuestionService")
-    private QuestionService javaQuestionService;
+//    @Qualifier("JavaQuestionService")
+    private final JavaQuestionService javaQuestionService;
 
-    @Autowired
-    @Qualifier("MathQuestionService")
-    private QuestionService mathQuestionService;
+
+//    @Qualifier("MathQuestionService")
+    private final MathQuestionService mathQuestionService;
+
+    public ExaminerServiceImpl(JavaQuestionService javaQuestionService, MathQuestionService mathQuestionService) {
+        this.javaQuestionService = javaQuestionService;
+        this.mathQuestionService = mathQuestionService;
+    }
 
 
     @Override
